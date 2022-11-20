@@ -18,6 +18,5 @@
                 return File.Exists(filePath) ?  File.ReadAllText(filePath) : null;
             }
 
-        
     }
 }

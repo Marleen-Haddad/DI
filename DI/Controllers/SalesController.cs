@@ -9,26 +9,17 @@ namespace DI.Controllers
     public class SalesController : ControllerBase
     {
     
-
-        private readonly ILogger<SalesController> _logger;
-
         private readonly IEmployeeDAL _employeeDAL;
-        public SalesController(ILogger<SalesController> logger, IEmployeeDAL employeeDAL)
+        public SalesController( IEmployeeDAL employeeDAL)
         {
-            _logger = logger;
             _employeeDAL = employeeDAL;
         }
 
         [HttpPost]
         [Route("AddSales")]
-        public async Task<IActionResult> Add(string SalesFirstName, string SalesLastName ,string ManagerFirstName , string ManagerLastName )
+        public IActionResult Add(string SalesFirstName, string SalesLastName)
         {
-            Manager manager = new Manager();
-            manager.FirstName = ManagerFirstName;
-            manager.LastName = ManagerLastName;
-
             EmployeeHasManager sales = new Sales();
-            sales.AssignManager(manager);
             sales.FirstName = SalesFirstName;
             sales.LastName = SalesLastName;
 
@@ -39,10 +30,9 @@ namespace DI.Controllers
 
         [HttpPost]
         [Route("Delete")]
-        public async Task<IActionResult> Delete(Guid guid)
+        public IActionResult Delete(Guid guid)
         {
             bool isDeleted = _employeeDAL.DeleteEmployee(guid);
-
             return Ok(isDeleted);
         }
     }

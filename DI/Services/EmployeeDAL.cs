@@ -14,7 +14,12 @@ namespace DI.Services
 
         public Guid AddEmployeeWithoutManager(IEmployee employee)
         {
-            throw new NotImplementedException();
+            employee.Guid = new Guid();
+            List<IEmployee> employees = new List<IEmployee>();
+            employees = JsonConvert.DeserializeObject<List<IEmployee>>(FileHelper.ReadFile("Employees.txt"));
+            employees.Add(employee);
+            FileHelper.WriteToFile("Employees.txt", JsonConvert.SerializeObject(employees));
+            return employee.Guid;
         }
 
         public bool DeleteEmployee(Guid guid)
@@ -32,9 +37,18 @@ namespace DI.Services
 
         }
 
-        public bool UpdateEmployee(Guid guid)
+        public bool UpdateEmployee(Guid guid, IEmployee employee)
         {
-            throw new NotImplementedException();
+            List<IEmployee> employees = new List<IEmployee>();
+            employees = JsonConvert.DeserializeObject<List<IEmployee>>(FileHelper.ReadFile("Employees.txt"));
+            employees = employees.Select(e =>
+            {
+                if (e.Guid.Equals(guid))
+                    return employee;
+                else return e;
+            }).ToList();
+            FileHelper.WriteToFile("Employees.txt", JsonConvert.SerializeObject(employees));
+            return true;
         }
     }
 }
