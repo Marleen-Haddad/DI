@@ -6,13 +6,14 @@ namespace DI.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class SalesController : ControllerBase
+    public class SalesController : AppBaseController<SalesController>
     {
-    
+       
         private readonly IEmployeeDAL _employeeDAL;
-        public SalesController( IEmployeeDAL employeeDAL)
+
+        public SalesController(IEmployeeDAL employeeDAL, ILogger<SalesController> _logger) :base(_logger)    
         {
-            _employeeDAL = employeeDAL;
+            _employeeDAL = employeeDAL;         
         }
 
         [HttpPost]
@@ -25,6 +26,8 @@ namespace DI.Controllers
 
             Guid guid= _employeeDAL.AddEmployeeWithManager(sales);
 
+            _logger.LogInformation($"Add new sales employee with Guid : {guid}");
+
             return Ok($"Employee Guid : {guid}");
         }
 
@@ -33,6 +36,9 @@ namespace DI.Controllers
         public IActionResult Delete(Guid guid)
         {
             bool isDeleted = _employeeDAL.DeleteEmployee(guid);
+
+            _logger.LogInformation($"Sales employee deleted with Guid : {guid}");
+
             return Ok(isDeleted);
         }
     }
