@@ -4,6 +4,7 @@ namespace DI
 {
     public abstract class EmployeeHasManager : IEmployee, IEmployeeWithManager
     {
+        public Guid Guid { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public decimal Salary { get; set; }

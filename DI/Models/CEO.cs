@@ -4,6 +4,7 @@ namespace DI.Models
 {
     public class CEO : IEmployee
     {
+        public Guid Guid { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public decimal Salary { get; set; }
