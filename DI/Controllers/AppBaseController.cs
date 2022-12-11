@@ -6,7 +6,9 @@ namespace DI.Controllers
     {
         public readonly ILogger<T> _logger;
         public AppBaseController(ILogger<T> logger) { 
+
         _logger = logger;
+
         }
     }
 }

@@ -27,7 +27,7 @@ namespace DI.Services
             string? employees = FileHelper.ReadFile("Employees.txt");
             if (string.IsNullOrEmpty(employees))
             {
-                throw new Exception("No Employees found");
+                throw new SystemException("No Employees found");
             }
             else
             {

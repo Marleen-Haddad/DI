@@ -1,10 +1,16 @@
 using DI.InterfacesAndAbstractClasses;
+using DI.Middleware;
 using DI.Services;
 using Microsoft.AspNetCore.Diagnostics;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
+var logger = new LoggerConfiguration()
+  .ReadFrom.Configuration(builder.Configuration)
+  .Enrich.FromLogContext()
+  .CreateLogger();
+builder.Logging.ClearProviders();
+builder.Logging.AddSerilog(logger);
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -15,35 +21,13 @@ builder.Services.AddTransient<IEmployeeDAL, EmployeeDAL>();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
-app.UseExceptionHandler(exceptionHandlerApp =>
-{
-    exceptionHandlerApp.Run(async context =>
-    {
-        context.Response.StatusCode = StatusCodes.Status500InternalServerError;
-
-        context.Response.ContentType = String.Empty;
-
-        var exceptionHandlerPathFeature =
-            context.Features.Get<IExceptionHandlerPathFeature>();
-
-        if (exceptionHandlerPathFeature?.Error is FileNotFoundException)
-        {
-            await context.Response.WriteAsync(" The file was not found.");
-        }
-        else 
-        {
-            await context.Response.WriteAsync(exceptionHandlerPathFeature?.Error.Message?.ToString() ?? String.Empty);
-        }
-
-    });
-});
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 app.UseHttpsRedirection();
 
