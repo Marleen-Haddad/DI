@@ -1,0 +1,16 @@
+2022-12-11 14:06:16.017 +00:00 [INF] Now listening on: https://[::]:443
+2022-12-11 14:06:16.054 +00:00 [INF] Now listening on: http://[::]:80
+2022-12-11 14:06:16.057 +00:00 [INF] Application started. Press Ctrl+C to shut down.
+2022-12-11 14:06:16.057 +00:00 [INF] Hosting environment: Development
+2022-12-11 14:06:16.058 +00:00 [INF] Content root path: /app/
+2022-12-11 14:06:43.463 +00:00 [INF] Request starting HTTP/2 GET https://localhost:49165/swagger/index.html - -
+2022-12-11 14:06:43.757 +00:00 [INF] Request finished HTTP/2 GET https://localhost:49165/swagger/index.html - - - 200 - text/html;charset=utf-8 300.2597ms
+2022-12-11 14:06:44.021 +00:00 [INF] Request starting HTTP/2 GET https://localhost:49165/swagger/v1/swagger.json - -
+2022-12-11 14:06:44.091 +00:00 [INF] Request finished HTTP/2 GET https://localhost:49165/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 69.8309ms
+2022-12-11 14:07:01.119 +00:00 [INF] Request starting HTTP/2 POST https://localhost:49165/Sales/Delete?guid=4397c266-df84-4b2f-a547-84a54b14ca5b - 0
+2022-12-11 14:07:01.126 +00:00 [INF] Executing endpoint 'DI.Controllers.SalesController.Delete (DI)'
+2022-12-11 14:07:01.144 +00:00 [INF] Route matched with {action = "Delete", controller = "Sales"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Delete(System.Guid) on controller DI.Controllers.SalesController (DI).
+2022-12-11 14:07:04.135 +00:00 [INF] Executed action DI.Controllers.SalesController.Delete (DI) in 2985.6447ms
+2022-12-11 14:07:04.137 +00:00 [INF] Executed endpoint 'DI.Controllers.SalesController.Delete (DI)'
+2022-12-11 14:07:04.148 +00:00 [ERR] No Employees found
+2022-12-11 14:07:04.149 +00:00 [INF] Request finished HTTP/2 POST https://localhost:49165/Sales/Delete?guid=4397c266-df84-4b2f-a547-84a54b14ca5b - 0 - 404 - application/json 3030.9054ms
